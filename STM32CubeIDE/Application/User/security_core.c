@@ -4,18 +4,19 @@
 #include "../Inc/security_core.h"
 #endif
 #ifdef __arm__
-#define USE_REAL_HARDWARE 1
 #include "stm32f4xx_hal.h"
 #endif
 #include <string.h>
 #include <stdio.h>
 
-/* Biến lưu trạng thái hiện tại của hệ thống */
+/* Biến trạng thái toàn cục */
 SecurityState_t current_state = STATE_LOCKED;
 bool flag_request_register = false;
-uint8_t failed_attempts = 0;
 
-/* Mảng chứa pattern đã lưu */
+/* ---- Mock Flash Storage (Phase 1) ---- */
+/* Ở Phase 1 Simulator, ta lưu pattern vào RAM.
+   Sau này ở Phase 2 sẽ thay bằng hàm đọc/ghi Flash thực sự.
+*/
 static uint8_t saved_pattern[MAX_PATTERN_LENGTH] = {0, 1, 2, 5, 8}; // Pattern mặc định: L ngược
 static uint8_t saved_pattern_len = 5;
 
@@ -24,86 +25,14 @@ static uint8_t temp_register_pattern[MAX_PATTERN_LENGTH];
 static uint8_t temp_register_len = 0;
 
 /* ------------------------------------------------------------------ */
-#ifdef USE_REAL_HARDWARE
-#define FLASH_USER_SECTOR       FLASH_SECTOR_23
-#define FLASH_USER_START_ADDR   0x081E0000
-#define MAGIC_WORD              0xDEADBEEF
-
-static void Storage_WritePattern(const uint8_t* pattern, uint8_t length) {
-    HAL_FLASH_Unlock();
-    
-    FLASH_EraseInitTypeDef EraseInitStruct;
-    uint32_t SectorError = 0;
-    
-    EraseInitStruct.TypeErase = FLASH_TYPEERASE_SECTORS;
-    EraseInitStruct.VoltageRange = FLASH_VOLTAGE_RANGE_3;
-    EraseInitStruct.Sector = FLASH_USER_SECTOR;
-    EraseInitStruct.NbSectors = 1;
-    
-    if (HAL_FLASHEx_Erase(&EraseInitStruct, &SectorError) != HAL_OK) {
-        HAL_FLASH_Lock();
-        return;
-    }
-    
-    // Ghi Magic Word
-    HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, FLASH_USER_START_ADDR, MAGIC_WORD);
-    
-    // Ghi Length
-    uint32_t length_word = (uint32_t)length;
-    HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, FLASH_USER_START_ADDR + 4, length_word);
-    
-    // Ghi Pattern (Pack 4 bytes thành 1 WORD)
-    uint32_t addr = FLASH_USER_START_ADDR + 8;
-    for (int i = 0; i < length; i += 4) {
-        uint32_t data = 0;
-        for (int j = 0; j < 4; j++) {
-            if (i + j < length) {
-                data |= ((uint32_t)pattern[i + j] << (j * 8));
-            }
-        }
-        HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, addr, data);
-        addr += 4;
-    }
-    
-    HAL_FLASH_Lock();
-}
-
-static void Storage_ReadPattern(void) {
-    uint32_t magic = *(__IO uint32_t*)FLASH_USER_START_ADDR;
-    if (magic == MAGIC_WORD) {
-        uint32_t length = *(__IO uint32_t*)(FLASH_USER_START_ADDR + 4);
-        if (length > 0 && length <= MAX_PATTERN_LENGTH) {
-            saved_pattern_len = (uint8_t)length;
-            uint32_t addr = FLASH_USER_START_ADDR + 8;
-            for (int i = 0; i < length; i += 4) {
-                uint32_t data = *(__IO uint32_t*)addr;
-                for (int j = 0; j < 4; j++) {
-                    if (i + j < length) {
-                        saved_pattern[i + j] = (uint8_t)(data >> (j * 8));
-                    }
-                }
-                addr += 4;
-            }
-        }
-    }
-}
-#else
-static void Storage_WritePattern(const uint8_t* pattern, uint8_t length) {
-    // Không làm gì, đã cập nhật biến trên RAM
-    (void)pattern; (void)length;
-}
-
-static void Storage_ReadPattern(void) {
-    // Không làm gì, giữ nguyên default pattern trên RAM
-}
-#endif
-/* ------------------------------------------------------------------ */
 
 void Security_Init(void) {
-    Storage_ReadPattern();
+    /* Trong tương lai (Phase 2):
+       Đọc từ Flash sector 11. Nếu magic number đúng thì lấy pattern.
+       Hiện tại (Phase 1): Sử dụng pattern mặc định trong RAM.
+    */
     current_state = STATE_LOCKED;
     flag_request_register = false;
-    failed_attempts = 0;
 }
 
 bool Security_ProcessPattern(const uint8_t* input_pattern, uint8_t length) {
@@ -115,29 +44,20 @@ bool Security_ProcessPattern(const uint8_t* input_pattern, uint8_t length) {
         case STATE_LOCKED:
             /* User vừa vẽ xong ở màn hình khóa, chuyển sang VERIFYING */
             current_state = STATE_VERIFYING;
-            
+
             /* So sánh với pattern đã lưu */
             if (length == saved_pattern_len) {
                 if (memcmp(input_pattern, saved_pattern, length) == 0) {
                     /* Khớp -> Mở khóa thành công */
                     current_state = STATE_UNLOCKED;
-                    failed_attempts = 0; // Reset số lần sai
                     return true;
                 }
             }
-            /* Không khớp -> Quay lại khóa hoặc chuyển sang Timeout */
-            failed_attempts++;
-            if (failed_attempts >= 5) {
-                current_state = STATE_LOCKED_TIMEOUT;
-            } else {
-                current_state = STATE_LOCKED;
-            }
+            /* Không khớp -> Quay lại khóa */
+            current_state = STATE_LOCKED;
             return false;
 
         case STATE_REGISTERING:
-            if (length < 4) {
-                return false; // Phải có ít nhất 4 điểm
-            }
             /* User vẽ pattern lần 1 -> Lưu vào mảng tạm -> Sang CONFIRMING */
             memcpy(temp_register_pattern, input_pattern, length);
             temp_register_len = length;
@@ -151,10 +71,9 @@ bool Security_ProcessPattern(const uint8_t* input_pattern, uint8_t length) {
                     /* Khớp -> Lưu thành pattern chính thức */
                     memcpy(saved_pattern, temp_register_pattern, length);
                     saved_pattern_len = length;
-                    
-                    /* Phase 2: Lưu vào Flash */
-                    Storage_WritePattern(saved_pattern, saved_pattern_len);
-                    
+
+                    /* Phase 2: Gọi HAL_FLASH_Program ở đây để lưu vĩnh viễn */
+
                     /* Xong -> Quay về Locked */
                     current_state = STATE_LOCKED;
                     return true;
@@ -169,23 +88,23 @@ bool Security_ProcessPattern(const uint8_t* input_pattern, uint8_t length) {
     }
 }
 
+/* Biến phục vụ đếm thời gian nút Boot */
+static uint32_t boot_button_press_time = 0;
+static bool boot_button_is_pressed = false;
+
 /* Giả lập đọc nút Boot (USER BUTTON trên kit STM32F429I-DISC1 là PA0) */
-/* Nhưng trong Simulator (Phase 1), có thể ta sẽ dùng một flag từ TouchGFX gửi xuống 
+/* Nhưng trong Simulator (Phase 1), có thể ta sẽ dùng một flag từ TouchGFX gửi xuống
    hoặc gọi hàm này từ một nút bấm trên UI để test. */
 void Security_CheckBootButton(void) {
     /* Trong thư viện HAL, PA0 là nút bấm trên kit F429-DISC1.
        Tùy thuộc vào config CubeMX, thường là GPIO_PIN_0 trên GPIOA.
        Ở Phase 1 (Simulator), GPIO không hoạt động thực sự trừ khi có phần giả lập.
     */
-    
+
     // GPIO_PinState state = HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0);
     // Giả sử ta đang có một hàm mock hoặc test trên kit thật:
-    
-    #ifdef USE_REAL_HARDWARE
-    /* Biến phục vụ đếm thời gian nút Boot */
-    static uint32_t boot_button_press_time = 0;
-    static bool boot_button_is_pressed = false;
 
+    #ifdef USE_REAL_HARDWARE
     GPIO_PinState state = HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0);
     if (state == GPIO_PIN_SET) { // Nút bấm là Active High trên F429I-DISC1
         if (!boot_button_is_pressed) {
@@ -201,7 +120,7 @@ void Security_CheckBootButton(void) {
                 }
                 /* Reset để không trigger liên tục */
                 boot_button_is_pressed = false;
-                boot_button_press_time = HAL_GetTick(); 
+                boot_button_press_time = HAL_GetTick();
             }
         }
     } else {
