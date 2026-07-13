@@ -1,0 +1,678 @@
+{
+  "Application": {
+    "Screens": [
+      {
+        "Name": "LockScreen",
+        "CanvasBufferSize": 3600,
+        "Components": [
+          {
+            "Type": "TextArea",
+            "Name": "textLockout",
+            "X": 15,
+            "Width": 210,
+            "Height": 72,
+            "Visible": false,
+            "TextId": "__SingleUse_KZ9I",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true
+          },
+          {
+            "Type": "Circle",
+            "Name": "dot0",
+            "Y": 80,
+            "Width": 50,
+            "Height": 50,
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "CenterX": 25.0,
+            "CenterY": 25.0,
+            "Radius": 25.0,
+            "EndAngle": 360.0,
+            "CapPrecision": "Butt"
+          },
+          {
+            "Type": "Circle",
+            "Name": "dot7",
+            "X": 95,
+            "Y": 270,
+            "Width": 50,
+            "Height": 50,
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "CenterX": 25.0,
+            "CenterY": 25.0,
+            "Radius": 25.0,
+            "EndAngle": 360.0,
+            "CapPrecision": "Butt"
+          },
+          {
+            "Type": "Circle",
+            "Name": "dot8",
+            "X": 190,
+            "Y": 270,
+            "Width": 50,
+            "Height": 50,
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "CenterX": 25.0,
+            "CenterY": 25.0,
+            "Radius": 25.0,
+            "EndAngle": 360.0,
+            "CapPrecision": "Butt"
+          },
+          {
+            "Type": "Circle",
+            "Name": "dot1",
+            "X": 95,
+            "Y": 80,
+            "Width": 50,
+            "Height": 50,
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "CenterX": 25.0,
+            "CenterY": 25.0,
+            "Radius": 25.0,
+            "EndAngle": 360.0,
+            "CapPrecision": "Butt"
+          },
+          {
+            "Type": "Circle",
+            "Name": "dot2",
+            "X": 190,
+            "Y": 80,
+            "Width": 50,
+            "Height": 50,
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "CenterX": 25.0,
+            "CenterY": 25.0,
+            "Radius": 25.0,
+            "EndAngle": 360.0,
+            "CapPrecision": "Butt"
+          },
+          {
+            "Type": "Circle",
+            "Name": "dot3",
+            "Y": 175,
+            "Width": 50,
+            "Height": 50,
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "CenterX": 25.0,
+            "CenterY": 25.0,
+            "Radius": 25.0,
+            "EndAngle": 360.0,
+            "CapPrecision": "Butt"
+          },
+          {
+            "Type": "Circle",
+            "Name": "dot4",
+            "X": 95,
+            "Y": 175,
+            "Width": 50,
+            "Height": 50,
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "CenterX": 25.0,
+            "CenterY": 25.0,
+            "Radius": 25.0,
+            "EndAngle": 360.0,
+            "CapPrecision": "Butt"
+          },
+          {
+            "Type": "Circle",
+            "Name": "dot5",
+            "X": 190,
+            "Y": 175,
+            "Width": 50,
+            "Height": 50,
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "CenterX": 25.0,
+            "CenterY": 25.0,
+            "Radius": 25.0,
+            "EndAngle": 360.0,
+            "CapPrecision": "Butt"
+          },
+          {
+            "Type": "Circle",
+            "Name": "dot6",
+            "Y": 270,
+            "Width": 50,
+            "Height": 50,
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "CenterX": 25.0,
+            "CenterY": 25.0,
+            "Radius": 25.0,
+            "EndAngle": 360.0,
+            "CapPrecision": "Butt"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1",
+            "X": 19,
+            "Y": 11,
+            "Width": 202,
+            "Height": 24,
+            "TextId": "__SingleUse_CHBA",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textError",
+            "X": 52,
+            "Y": 11,
+            "Width": 136,
+            "Height": 24,
+            "Visible": false,
+            "TextId": "__SingleUse_MSUO",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255
+            },
+            "AutoSize": true
+          }
+        ],
+        "Interactions": []
+      },
+      {
+        "Name": "RegisterScreen",
+        "CanvasBufferSize": 3600,
+        "Components": [
+          {
+            "Type": "Circle",
+            "Name": "dot0",
+            "Y": 80,
+            "Width": 50,
+            "Height": 50,
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "CenterX": 25.0,
+            "CenterY": 25.0,
+            "Radius": 25.0,
+            "EndAngle": 360.0,
+            "CapPrecision": "Butt"
+          },
+          {
+            "Type": "Circle",
+            "Name": "dot7",
+            "X": 95,
+            "Y": 270,
+            "Width": 50,
+            "Height": 50,
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "CenterX": 25.0,
+            "CenterY": 25.0,
+            "Radius": 25.0,
+            "EndAngle": 360.0,
+            "CapPrecision": "Butt"
+          },
+          {
+            "Type": "Circle",
+            "Name": "dot8",
+            "X": 190,
+            "Y": 270,
+            "Width": 50,
+            "Height": 50,
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "CenterX": 25.0,
+            "CenterY": 25.0,
+            "Radius": 25.0,
+            "EndAngle": 360.0,
+            "CapPrecision": "Butt"
+          },
+          {
+            "Type": "Circle",
+            "Name": "dot1",
+            "X": 95,
+            "Y": 80,
+            "Width": 50,
+            "Height": 50,
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "CenterX": 25.0,
+            "CenterY": 25.0,
+            "Radius": 25.0,
+            "EndAngle": 360.0,
+            "CapPrecision": "Butt"
+          },
+          {
+            "Type": "Circle",
+            "Name": "dot2",
+            "X": 190,
+            "Y": 80,
+            "Width": 50,
+            "Height": 50,
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "CenterX": 25.0,
+            "CenterY": 25.0,
+            "Radius": 25.0,
+            "EndAngle": 360.0,
+            "CapPrecision": "Butt"
+          },
+          {
+            "Type": "Circle",
+            "Name": "dot3",
+            "Y": 175,
+            "Width": 50,
+            "Height": 50,
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "CenterX": 25.0,
+            "CenterY": 25.0,
+            "Radius": 25.0,
+            "EndAngle": 360.0,
+            "CapPrecision": "Butt"
+          },
+          {
+            "Type": "Circle",
+            "Name": "dot4",
+            "X": 95,
+            "Y": 175,
+            "Width": 50,
+            "Height": 50,
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "CenterX": 25.0,
+            "CenterY": 25.0,
+            "Radius": 25.0,
+            "EndAngle": 360.0,
+            "CapPrecision": "Butt"
+          },
+          {
+            "Type": "Circle",
+            "Name": "dot5",
+            "X": 190,
+            "Y": 175,
+            "Width": 50,
+            "Height": 50,
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "CenterX": 25.0,
+            "CenterY": 25.0,
+            "Radius": 25.0,
+            "EndAngle": 360.0,
+            "CapPrecision": "Butt"
+          },
+          {
+            "Type": "Circle",
+            "Name": "dot6",
+            "Y": 270,
+            "Width": 50,
+            "Height": 50,
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "CenterX": 25.0,
+            "CenterY": 25.0,
+            "Radius": 25.0,
+            "EndAngle": 360.0,
+            "CapPrecision": "Butt"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1",
+            "X": 35,
+            "Y": 12,
+            "Width": 171,
+            "Height": 24,
+            "TextId": "__SingleUse_QN18",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textErrorLength",
+            "X": 26,
+            "Y": 12,
+            "Width": 189,
+            "Height": 48,
+            "TextId": "__SingleUse_F724",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255
+            },
+            "AutoSize": true
+          }
+        ],
+        "Interactions": []
+      },
+      {
+        "Name": "ConfirmScreen",
+        "CanvasBufferSize": 3600,
+        "Components": [
+          {
+            "Type": "TextArea",
+            "Name": "textArea1",
+            "X": 2,
+            "Y": 12,
+            "Width": 236,
+            "Height": 24,
+            "TextId": "__SingleUse_10ZS",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true
+          },
+          {
+            "Type": "Circle",
+            "Name": "dot0",
+            "Y": 80,
+            "Width": 50,
+            "Height": 50,
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "CenterX": 25.0,
+            "CenterY": 25.0,
+            "Radius": 25.0,
+            "EndAngle": 360.0,
+            "CapPrecision": "Butt"
+          },
+          {
+            "Type": "Circle",
+            "Name": "dot7",
+            "X": 95,
+            "Y": 270,
+            "Width": 50,
+            "Height": 50,
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "CenterX": 25.0,
+            "CenterY": 25.0,
+            "Radius": 25.0,
+            "EndAngle": 360.0,
+            "CapPrecision": "Butt"
+          },
+          {
+            "Type": "Circle",
+            "Name": "dot8",
+            "X": 190,
+            "Y": 270,
+            "Width": 50,
+            "Height": 50,
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "CenterX": 25.0,
+            "CenterY": 25.0,
+            "Radius": 25.0,
+            "EndAngle": 360.0,
+            "CapPrecision": "Butt"
+          },
+          {
+            "Type": "Circle",
+            "Name": "dot1",
+            "X": 95,
+            "Y": 80,
+            "Width": 50,
+            "Height": 50,
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "CenterX": 25.0,
+            "CenterY": 25.0,
+            "Radius": 25.0,
+            "EndAngle": 360.0,
+            "CapPrecision": "Butt"
+          },
+          {
+            "Type": "Circle",
+            "Name": "dot2",
+            "X": 190,
+            "Y": 80,
+            "Width": 50,
+            "Height": 50,
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "CenterX": 25.0,
+            "CenterY": 25.0,
+            "Radius": 25.0,
+            "EndAngle": 360.0,
+            "CapPrecision": "Butt"
+          },
+          {
+            "Type": "Circle",
+            "Name": "dot3",
+            "Y": 175,
+            "Width": 50,
+            "Height": 50,
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "CenterX": 25.0,
+            "CenterY": 25.0,
+            "Radius": 25.0,
+            "EndAngle": 360.0,
+            "CapPrecision": "Butt"
+          },
+          {
+            "Type": "Circle",
+            "Name": "dot4",
+            "X": 95,
+            "Y": 175,
+            "Width": 50,
+            "Height": 50,
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "CenterX": 25.0,
+            "CenterY": 25.0,
+            "Radius": 25.0,
+            "EndAngle": 360.0,
+            "CapPrecision": "Butt"
+          },
+          {
+            "Type": "Circle",
+            "Name": "dot5",
+            "X": 190,
+            "Y": 175,
+            "Width": 50,
+            "Height": 50,
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "CenterX": 25.0,
+            "CenterY": 25.0,
+            "Radius": 25.0,
+            "EndAngle": 360.0,
+            "CapPrecision": "Butt"
+          },
+          {
+            "Type": "Circle",
+            "Name": "dot6",
+            "Y": 270,
+            "Width": 50,
+            "Height": 50,
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "CenterX": 25.0,
+            "CenterY": 25.0,
+            "Radius": 25.0,
+            "EndAngle": 360.0,
+            "CapPrecision": "Butt"
+          }
+        ],
+        "Interactions": []
+      },
+      {
+        "Name": "UnlockedScreen",
+        "Components": [
+          {
+            "Type": "TextArea",
+            "Name": "textArea1",
+            "X": 18,
+            "Y": 124,
+            "Width": 205,
+            "Height": 24,
+            "TextId": "__SingleUse_NW59",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true
+          }
+        ],
+        "Interactions": []
+      }
+    ],
+    "CustomContainerDefinitions": [],
+    "Name": "SecurityPattern",
+    "Resolution": {
+      "Width": 240,
+      "Height": 320
+    },
+    "SelectedColorDepth": 16,
+    "StartupScreenName": "LockScreen",
+    "SelectedStartupLanguage": "GB",
+    "TouchGfxPath": "../Middlewares/ST/touchgfx",
+    "UIPath": ".",
+    "AvailableColorDepths": [
+      16
+    ],
+    "AvailableLCDs": {
+      "16": "LCD16bpp"
+    },
+    "AvailableSections": [
+      "ExtFlashSection",
+      "IntFlashSection"
+    ],
+    "AvailableResolutions": [
+      {
+        "Width": 240,
+        "Height": 320
+      }
+    ],
+    "PhysicalButtons": [],
+    "FrameworkFeatures": {
+      "LCD16bpp": {
+        "Id": "LCD16bpp",
+        "IsEnabled": true
+      }
+    },
+    "GenerateAssetsCommand": "make -f simulator/gcc/Makefile assets -j8",
+    "PostGenerateCommand": "touchgfx update_project --project-file=simulator/msvs/Application.vcxproj",
+    "PostGenerateTargetCommand": "touchgfx update_project",
+    "CompileSimulatorCommand": "make -f simulator/gcc/Makefile -j8",
+    "RunSimulatorCommand": "build\\bin\\simulator.exe",
+    "CompileTargetCommandOverride": "make -f ../gcc/Makefile -j8",
+    "FlashTargetCommandOverride": "make -f ../gcc/Makefile flash",
+    "LandscapeSkinX": 0,
+    "LandscapeSkinY": 0,
+    "PortraitSkinX": 0,
+    "PortraitSkinY": 0,
+    "DisplayOrientation": "Portrait",
+    "Family": "STM32F4",
+    "SubFamily": "STM32F429/439",
+    "Toolchain": "STM32CubeIDE",
+    "Platform": "m4",
+    "ProjectFile": "../STM32F429I_DISCO_REV_D01.ioc",
+    "OptionalComponentsRoot": "../Middlewares/ST/touchgfx_components",
+    "OptionalComponents": [],
+    "AdditionalFeatures": [
+      "CWRVector",
+      "VectorFonts"
+    ]
+  },
+  "Version": "4.25.0",
+  "CreatedBy": "4.25.0"
+}
